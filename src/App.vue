@@ -7,6 +7,7 @@
       v-bind="todo"
       @toggle="handleToggle"
       @update="handleUpdate"
+      @delete="handleDelete"
     />
   </TodoList>
   <TodoFooter />
@@ -33,6 +34,11 @@ const handleToggle = (id, checked) => {
 const handleUpdate = (id, content) => {
    const todo = todos.value.find((todo) => todo.id === id)
    todo.content = content
+}
+
+const handleDelete = (id) => {
+  const index = todos.value.findIndex((todo) => todo.id === id)
+  todos.value.splice(index,1)
 }
 </script>
 

@@ -10,7 +10,7 @@
       @keyup.enter="handleUpdate"
     />
     <span v-else @click="isEditing = true">{{ content }}</span>
-    <button>删除</button>
+    <button @click="handleDelete">删除</button>
   </li>
 </template>
 
@@ -28,7 +28,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['toggle', 'update'])
+const emits = defineEmits(['toggle', 'update', 'delete'])
 
 const isEditing = ref(false)
 
@@ -55,6 +55,10 @@ const handleUpdate = (event) => {
   // 1.反转isEditing状态
   isEditing.value = false
   //
+}
+
+const handleDelete = () => {
+  emits('delete', props.id)
 }
 </script>
 
