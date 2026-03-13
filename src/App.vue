@@ -1,14 +1,16 @@
 <template>
   <TodoHeader @addTodo="handleAdd" />
   <TodoList>
-    <TodoItem
-      v-for="todo in todos"
-      :key="todo.id"
-      v-bind="todo"
-      @toggle="handleToggle"
-      @update="handleUpdate"
-      @delete="handleDelete"
-    />
+    <draggable v-model="todos" item-key="id">
+      <template #item="obj">
+        <TodoItem
+          v-bind="obj.element"
+          @toggle="handleToggle"
+          @update="handleUpdate"
+          @delete="handleDelete"
+        />
+      </template>
+    </draggable>
   </TodoList>
   <TodoFooter
     :todos="todos"
@@ -19,11 +21,12 @@
 </template>
 
 <script setup>
+import { ref, watch, onMounted } from 'vue'
+import draggable from 'vuedraggable'
 import TodoHeader from './components/TodoHeader.vue'
 import TodoList from './components/Todolist.vue'
 import TodoFooter from './components/TodoFooter.vue'
 import TodoItem from './components/TodoItem.vue'
-import { ref, watch, onMounted } from 'vue'
 
 const todos = ref([])
 
@@ -60,6 +63,7 @@ const handleClearDone = () => {
 const handleClearAll = () => {
   // todos.value.length = 0
   todos.value = []
+  localStorage.removeItem('todos')
 }
 
 watch(
@@ -70,9 +74,9 @@ watch(
   { deep: true },
 )
 
-onMounted(()=>{
+onMounted(() => {
   const savedTodos = localStorage.getItem('todos')
-  if(savedTodos){
+  if (savedTodos) {
     todos.value = JSON.parse(savedTodos)
   }
 })

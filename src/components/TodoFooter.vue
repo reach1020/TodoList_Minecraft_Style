@@ -17,7 +17,7 @@ const props = defineProps({
     default:()=>[],
   }
 })
-const emits = defineEmits(['toggle-all'])
+const emits = defineEmits(['toggle-all','clear-done','clear-all'])
 
 const doneCount = computed(()=>{
   return props.todos.filter((todo)=>todo.done).length
