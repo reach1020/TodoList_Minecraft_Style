@@ -23,7 +23,7 @@ import TodoHeader from './components/TodoHeader.vue'
 import TodoList from './components/Todolist.vue'
 import TodoFooter from './components/TodoFooter.vue'
 import TodoItem from './components/TodoItem.vue'
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 
 const todos = ref([])
 
@@ -48,17 +48,34 @@ const handleDelete = (id) => {
 
 const handleChangeAll = (checked) => {
   // 使用传递的value值,更新所有todo的done属性
-  todos.value.forEach((todo => {todo.done=checked}))
+  todos.value.forEach((todo) => {
+    todo.done = checked
+  })
 }
 
 const handleClearDone = () => {
   // 过滤出未完成元素
-  todos.value = todos.value.filter((todo)=>!todo.done)
+  todos.value = todos.value.filter((todo) => !todo.done)
 }
 const handleClearAll = () => {
   // todos.value.length = 0
   todos.value = []
 }
+
+watch(
+  todos,
+  () => {
+    localStorage.setItem('todos', JSON.stringify(todos.value))
+  },
+  { deep: true },
+)
+
+onMounted(()=>{
+  const savedTodos = localStorage.getItem('todos')
+  if(savedTodos){
+    todos.value = JSON.parse(savedTodos)
+  }
+})
 </script>
 
 <style>

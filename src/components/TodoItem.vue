@@ -9,7 +9,7 @@
       @blur="handleUpdate"
       @keyup.enter="handleUpdate"
     />
-    <span v-else @click="isEditing = true">{{ content }}</span>
+    <span v-else @click="isEditing = true" :class="{'done':done}">{{ content }}</span>
     <button @click="handleDelete">删除</button>
   </li>
 </template>
@@ -81,6 +81,10 @@ const handleDelete = () => {
 .todo-item input[type='text'] {
   flex: 1;
   margin-left: 20px;
+}
+.todo-item span.done {
+  text-decoration: line-through;
+  color: red;
 }
 .todo-item button {
   padding: 0 10px;
