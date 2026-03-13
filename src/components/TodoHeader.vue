@@ -2,13 +2,41 @@
   <header class="todo-header">
     <h2>TodoList</h2>
     <div class="add-todo">
-      <input type="text" placeholder="请输入待办事项" />
-      <button>添加</button>
+      <input
+        type="text"
+        placeholder="请输入待办事项"
+        v-model.trim="content"
+        @keyup.enter="addTodo"
+      />
+      <button @click="addTodo">添加</button>
     </div>
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const content = ref('')
+const emits = defineEmits(['addTodo'])
+
+function addTodo(){
+  // 1. 校验输入内容是否为空
+  if(!content.value){
+    alert('请输入待办事项')
+    return
+  }
+  // 2.组装
+  const todo = {
+    id: Date.now(),
+    content:content.value,
+    done:false,
+  }
+  // 3.发送数组给app组件
+  emits('addTodo',todo)
+  // 4. 清空输入框
+  content.value = ''
+}
+</script>
 
 <style scoped>
 .todo-header {
