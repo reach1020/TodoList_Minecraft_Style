@@ -10,7 +10,12 @@
       @delete="handleDelete"
     />
   </TodoList>
-  <TodoFooter />
+  <TodoFooter
+    :todos="todos"
+    @toggle-all="handleChangeAll"
+    @clear-done="handleClearDone"
+    @clear-all="handleClearAll"
+  />
 </template>
 
 <script setup>
@@ -32,13 +37,27 @@ const handleToggle = (id, checked) => {
 }
 
 const handleUpdate = (id, content) => {
-   const todo = todos.value.find((todo) => todo.id === id)
-   todo.content = content
+  const todo = todos.value.find((todo) => todo.id === id)
+  todo.content = content
 }
 
 const handleDelete = (id) => {
   const index = todos.value.findIndex((todo) => todo.id === id)
-  todos.value.splice(index,1)
+  todos.value.splice(index, 1)
+}
+
+const handleChangeAll = (checked) => {
+  // 使用传递的value值,更新所有todo的done属性
+  todos.value.forEach((todo => {todo.done=checked}))
+}
+
+const handleClearDone = () => {
+  // 过滤出未完成元素
+  todos.value = todos.value.filter((todo)=>!todo.done)
+}
+const handleClearAll = () => {
+  // todos.value.length = 0
+  todos.value = []
 }
 </script>
 
