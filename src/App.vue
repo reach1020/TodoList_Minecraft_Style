@@ -84,6 +84,9 @@
   display: flex;
   align-items: center;
 }
+.todo-list ul li:hover {
+  background-color: #ddd;
+}
 .todo-list li span {
   flex: 1;
   margin-left: 20px;
@@ -92,12 +95,12 @@
   padding: 0 10px;
 }
 .todo-footer {
-  display: flex;
   margin-top: 20px;
-  padding: 10px 40px;
   background-color: #87ceeb;
+  display: flex;
+  padding: 10px 40px;
 }
-.todo-footer div {
+.todo-footer span {
   flex: 1;
   margin-left: 20px;
 }
