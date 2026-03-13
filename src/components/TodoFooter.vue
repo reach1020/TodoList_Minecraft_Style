@@ -1,7 +1,7 @@
 <template>
   <footer class="todo-footer">
     <input type="checkbox" />
-    <span>已完成0项/全部事项2</span>
+    <span>完成事项0/全部事项2</span>
     <button>清除已办</button>
     <button>清除全部</button>
   </footer>
