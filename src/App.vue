@@ -1,6 +1,6 @@
 <template>
   <TodoHeader @addTodo="handleAdd"/>
-  <TodoList />
+  <TodoList :todos="todos" />
   <TodoFooter />
 </template>
 

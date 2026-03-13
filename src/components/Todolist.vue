@@ -1,21 +1,23 @@
 <template>
   <main class="todo-list">
     <ul>
-      <li>
-        <input type="checkbox" />
-        <span>待办事项1</span>
-        <button>删除</button>
-      </li>
-      <li>
-        <input type="checkbox" />
-        <span>待办事项2</span>
+      <li v-for="todo in todos" :key="todo.id">
+        <input type="checkbox" :checked="todo.done" />
+        <span>{{ todo.content }}</span>
         <button>删除</button>
       </li>
     </ul>
   </main>
 </template>
 
-<script setup></script>
+<script setup>
+  const props= defineProps({
+    todos:{
+      type:Array,
+      default:()=>[],
+    }
+  })
+</script>
 
 <style scoped>
 .todo-list ul li {
