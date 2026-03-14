@@ -1,5 +1,7 @@
 # TodoList
-🎮 基于Vue 3实现的我的世界风格待办事项应用
+基于Vue 3实现的我的世界风格待办事项应用
+
+[![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)
 
 ## 技术栈
 - Vue 3（组合式API）
@@ -19,4 +21,4 @@
 - 数据缓存：本地存储，刷新页面不丢失数据。
 
 ## 界面概览
-<img width="600" alt="TodoList界面" src="[https://github.com/你的用户名/仓库名/assets/xxx/xxx](https://reach1020.github.io/TodoList_Minecraft_Style/)" />
+<img width="600" alt="TodoList界面" src="https://reach1020.github.io/TodoList_Minecraft_Style/" />
