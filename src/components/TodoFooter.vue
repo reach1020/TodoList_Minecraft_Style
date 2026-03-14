@@ -1,6 +1,7 @@
 <template>
   <footer v-if="todos.length" class="todo-footer">
-    <input type="checkbox" :checked="allDone" @change="handleChange" />
+    <input type="checkbox" id="toggle-all" :checked="allDone" @change="handleChange" />
+    <label for="toggle-all" class="label-checkbox"></label>
     <span class="all-span">
       <span class="done-span">Completed:{{ doneCount }}</span>
       /All:{{ allCount }}</span
@@ -10,13 +11,13 @@
     </button>
     <button class="btn-color" @click="$emit('clear-all')">󰧮 Clear</button>
   </footer>
-  <h2 v-else class="empty">No Task!</h2>
+  <p v-else class="scale-text">No Task!</p>
   <div class="foot-info">
-    <p>Click to Edit Task</p>
-    <p>Written by LiQi</p>
+    <p>Click to Edit Task!</p>
+    <p>Written by Reach</p>
     <p>
       Visual style inspired by Minecraft.Fan-made, non-commercial, for learning
-      only.All rights go to Mojang.
+      only.
     </p>
   </div>
 </template>
@@ -48,6 +49,7 @@ const handleChange = (event) => {
 
 <style scoped>
 .todo-footer {
+  position: relative;
   display: flex;
   padding: 10px 30px;
   margin: 0 auto;
@@ -58,11 +60,14 @@ const handleChange = (event) => {
   cursor: default;
   box-shadow: 2px 4px 10px #222;
 }
+.label-checkbox{
+  top:23px
+}
 .todo-footer .all-span {
   flex: 1;
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 20px;
   color: #ffc42b;
 }
 .todo-footer .all-span .done-span {
@@ -73,37 +78,12 @@ const handleChange = (event) => {
   padding: 2px 10px;
   cursor: pointer;
 }
-@keyframes empty-scale {
-  0% {
-    transform: rotate(-10deg) scale(1);
-  }
-  50% {
-    transform: rotate(-10deg) scale(1.1);
-  }
-  100% {
-    transform: rotate(-10deg) scale(1);
-  }
-}
-.empty {
-  width: 200px;
-  margin:  10px auto;
-  color: #ffff00;
-  font-size: 40px;
-  font-weight: 500;
-  text-align: center;
-  text-wrap: nowrap;
-  text-shadow: 3px 3px 0 #3f3f00;
-  transform: rotate(-10deg);
-  animation: empty-scale 0.5s ease-in-out infinite;
-  cursor: default;
-}
 .foot-info {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 20px;
+  margin-top: 20px;
   text-align: center;
+  font-size: 14px;
   color: #fff;
   text-wrap: nowrap;
+  text-shadow: 1px 2px 0 #222;
 }
 </style>

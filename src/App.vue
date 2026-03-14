@@ -113,6 +113,7 @@ body {
   overflow-y: auto;
   min-width: 800px;
 }
+
 /* 背景图片 */
 .bg {
   position: fixed;
@@ -124,8 +125,30 @@ body {
   background-size: cover;
   background-position: center;
   /* 模糊滤镜 */
-  filter: blur(5px);
+  filter: blur(7px);
   z-index: -1;
+}
+/* 跳动黄字通用样式 */
+@keyframes scaleAnima {
+  0%,
+  100% {
+    transform: rotate(-10deg) scale(1);
+  }
+  50% {
+    transform: rotate(-10deg) scale(1.1);
+  }
+}
+.scale-text {
+  width: 200px;
+  margin: 10px auto;
+  color: #ffff00;
+  font-size: 40px;
+  text-align: center;
+  text-wrap: nowrap;
+  text-shadow: 3px 3px 0 #3f3f00;
+  transform: rotate(-10deg);
+  animation: scaleAnima 0.5s ease-in-out infinite;
+  cursor: default;
 }
 /* 按钮通用样式 */
 .btn-color {
@@ -133,8 +156,9 @@ body {
   color: #fff;
   text-shadow: 2px 2px 0 #000;
   border: solid 2px #aba09c;
-  box-shadow: inset 0 2px 2px #000,
-  0 2px 5px #222;
+  box-shadow:
+    inset 0 2px 2px #000,
+    0 2px 5px #222;
   cursor: pointer;
 }
 .btn-color:hover {
@@ -142,7 +166,85 @@ body {
   color: #000;
   border: solid 2px #fff;
   text-shadow: 2px 2px 0 #999;
-  box-shadow: inset 0 2px 2px #686260,
-  0 2px 5px #222;
+  box-shadow:
+    inset 0 2px 2px #686260,
+    0 2px 5px #222;
+}
+
+/* 实现选中框红石效果 */
+input[type='checkbox'] {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+}
+/* 未选中 */
+.label-checkbox {
+  position: absolute;
+  left: 24px;
+  top: 20px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #4a0505;
+  border: 3px solid #6b0101;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.label-checkbox::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  background: #2a0101;
+  cursor: pointer;
+}
+.label-checkbox::after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  top: 4px;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  background: #570101;
+  cursor: pointer;
+}
+/* 选中,相邻兄弟选择器修改全选后的样式 */
+input[type='checkbox']:checked + .label-checkbox {
+  position: absolute;
+  left: 24px;
+  top: 20px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #f86b69;
+  border: 4px solid #fd2727;
+  border-radius: 2px;
+  cursor: pointer;
+}
+input[type='checkbox']:checked + .label-checkbox::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 9px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #f84442;
+  cursor: pointer;
+}
+input[type='checkbox']:checked + .label-checkbox::after {
+  content: '';
+  position: absolute;
+  left: 0px;
+  top: 3px;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #f8b2af;
+  cursor: pointer;
 }
 </style>

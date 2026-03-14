@@ -1,6 +1,14 @@
 <template>
   <li class="todo-item">
-    <input type="checkbox" :checked="done" @change="handleChange" />
+    <input
+      :id="`todo-checkbox-${id}`"
+      type="checkbox"
+      :checked="done"
+      @change="handleChange"
+    />
+    <!-- 所有的checkbox都使用了相同的id="todo-checkbox"，这是一个问题。
+     因为id应该是唯一的，当多个元素使用相同的id时，浏览器只会识别第一个元素。 -->
+    <label :for="`todo-checkbox-${id}`" class="label-checkbox"></label>
     <input
       v-if="isEditing"
       v-focus
@@ -9,7 +17,9 @@
       @blur="handleUpdate"
       @keyup.enter="handleUpdate"
     />
-    <span v-else @click="isEditing = true" :class="{'done':done}">{{ content }}</span>
+    <span v-else @click="isEditing = true" :class="{ done: done }">{{
+      content
+    }}</span>
     <button class="btn-color" @click="handleDelete">Delete</button>
   </li>
 </template>
@@ -71,26 +81,37 @@ const handleDelete = () => {
   height: 40px;
   line-height: 40px;
   text-shadow: 2px 2px 0 #000;
-  box-shadow: 0 -1px 2px #2F2D2C,
-  0 1px 0px #222,
-  0 2px 0px #2F2D2C,
-  0 3px 0px #5a5352;
+  box-shadow:
+    0 -1px 2px #2f2d2c,
+    0 1px 0px #222,
+    0 2px 0px #2f2d2c,
+    0 3px 0px #5a5352;
   display: flex;
   align-items: center;
 }
 .todo-item:hover {
-  background-color: #EDE5E2;
+  background-color: #ede5e2;
   border-left: 2px solid #3b3939;
   text-shadow: 2px 2px 0 #bbb;
 }
-.todo-item:hover span{
+.todo-item:hover span {
   color: #000;
 }
 .todo-item span,
 .todo-item input[type='text'] {
   flex: 1;
-  margin-left: 20px;
+  margin: 0 20px;
   color: #fff;
+}
+.todo-item input[type='text']{
+  height: 30px;
+  background-color: #ede5e2;
+  color: #000;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  box-shadow: inset -2px 2px 2px #666,
+   -2px 2px 2px #999;
 }
 .todo-item span.done {
   text-decoration: line-through;
