@@ -19,6 +19,3 @@
 - 状态切换：标记完成/未完成，一键全选/取消；
 - 拖拽排序：自由调整待办列表顺序；
 - 数据缓存：本地存储，刷新页面不丢失数据。
-
-## 界面概览
-<img width="600" alt="TodoList界面" src="https://reach1020.github.io/TodoList_Minecraft_Style/" />
