@@ -6,16 +6,15 @@
   </main>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style scoped>
-  .todo-list {
-    width: 800px;
-    margin: 0 auto;
-    background-color: #3D3938;
-    border-right: 3px solid  #5C5958;
-    border-top: 3px solid  #5C5958;
-  }
+/* 任务列表样式 */
+.todo-list {
+  width: 800px;
+  margin: 0 auto;
+  background-color: #3d3938;
+  border-right: 3px solid #5c5958;
+  border-top: 3px solid #5c5958;
+}
 </style>

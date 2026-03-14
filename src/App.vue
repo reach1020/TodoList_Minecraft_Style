@@ -1,6 +1,6 @@
 <template>
   <div class="bg"></div>
-  <TodoHeader @addTodo="handleAdd" />
+  <TodoHeader @add-todo="handleAdd" />
   <TodoList v-if="todos.length">
     <draggable v-model="todos" item-key="id">
       <template #item="obj">
@@ -23,50 +23,74 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue'
+// 引入第三方排序插件
 import draggable from 'vuedraggable'
+// 引入组件
 import TodoHeader from './components/TodoHeader.vue'
-import TodoList from './components/Todolist.vue'
+import TodoList from './components/TodoList.vue'
 import TodoFooter from './components/TodoFooter.vue'
 import TodoItem from './components/TodoItem.vue'
 
 const todos = ref([])
 
+// 处理添加任务
 function handleAdd(todo) {
   todos.value.push(todo)
 }
 // 与上面相比,可以避免函数提升
+/**
+ * 事件处理函数:处理单个任务状态变化事件
+ * @param id 任务ID
+ * @param checked 任务状态(是否完成)
+ */
 const handleToggle = (id, checked) => {
   const todo = todos.value.find((todo) => todo.id === id)
   todo.done = checked
 }
-
+/**
+ * 事件处理函数:处理单个任务内容更新事件
+ * @param id 任务ID
+ * @param content 任务内容
+ */
 const handleUpdate = (id, content) => {
   const todo = todos.value.find((todo) => todo.id === id)
   todo.content = content
 }
-
+/**
+ * 事件处理函数:处理单个任务删除事件
+ * @param id 任务ID
+ */
 const handleDelete = (id) => {
   const index = todos.value.findIndex((todo) => todo.id === id)
   todos.value.splice(index, 1)
 }
-
+/**
+ * 事件处理函数:处理全选复选框变化事件
+ * @param checked 全选复选框状态(是否选中)
+ */
 const handleChangeAll = (checked) => {
   // 使用传递的value值,更新所有todo的done属性
   todos.value.forEach((todo) => {
     todo.done = checked
   })
 }
-
+/**
+ * 事件处理函数:处理清除已完成任务事件
+ */
 const handleClearDone = () => {
   // 过滤出未完成元素
   todos.value = todos.value.filter((todo) => !todo.done)
 }
+/**
+ * 事件处理函数:处理清除所有任务事件
+ */
 const handleClearAll = () => {
   // todos.value.length = 0
   todos.value = []
   localStorage.removeItem('todos')
 }
 
+//监听函数:监听todos数组变化,将其保存到本地存储,为JSON字符串
 watch(
   todos,
   () => {
@@ -75,6 +99,7 @@ watch(
   { deep: true },
 )
 
+// 挂载完成时,从本地存储加载任务列表
 onMounted(() => {
   const savedTodos = localStorage.getItem('todos')
   if (savedTodos) {
@@ -84,9 +109,7 @@ onMounted(() => {
 </script>
 
 <style>
-@import 'http://at.alicdn.com/t/c/font_5136873_ru4bucu0u8g.css';
-
-/*声明OTF格式的自定义字体*/
+/*引入字体:防止加载页面时,用户没有该字体,声明OTF格式的自定义字体*/
 @font-face {
   /* 自定义字体名称：后续使用时要完全匹配 */
   font-family: 'DepartureMono Nerd Font';
@@ -101,6 +124,7 @@ onMounted(() => {
   font-display: swap;
 }
 
+/* 清除样式 */
 * {
   margin: 0;
   padding: 0;
@@ -114,7 +138,7 @@ body {
   min-width: 800px;
 }
 
-/* 背景图片 */
+/* 背景图片模糊 */
 .bg {
   position: fixed;
   top: -10px;
@@ -128,6 +152,7 @@ body {
   filter: blur(7px);
   z-index: -1;
 }
+
 /* 跳动黄字通用样式 */
 @keyframes scaleAnima {
   0%,
@@ -150,6 +175,7 @@ body {
   animation: scaleAnima 0.5s ease-in-out infinite;
   cursor: default;
 }
+
 /* 按钮通用样式 */
 .btn-color {
   background-color: #3d3938;

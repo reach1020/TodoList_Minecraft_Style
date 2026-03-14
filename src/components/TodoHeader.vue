@@ -11,6 +11,7 @@
         v-model.trim="content"
         @keyup.enter="addTodo"
       />
+      <!-- 使用按钮和回车均可添加任务 -->
       <button class="btn-color" @click="addTodo">Add Task<span>></span></button>
     </div>
   </header>
@@ -20,22 +21,31 @@
 import { ref } from 'vue'
 
 const content = ref('')
-const emits = defineEmits(['addTodo'])
+// 自定义事件addTodo
+const emits = defineEmits(['add-todo'])
 
+/**
+ * 添加任务
+ */
 function addTodo() {
   // 1. 校验输入内容是否为空
   if (!content.value) {
     alert('请输入待办事项')
     return
   }
-  // 2.组装
+  /**
+   * 2.组装任务对象
+   * id: 任务唯一标识符,使用当前时间戳
+   * content: 任务内容,从输入框获取
+   * done: 任务完成状态,默认false(未完成)
+   */
   const todo = {
     id: Date.now(),
     content: content.value,
     done: false,
   }
   // 3.发送数组给app组件
-  emits('addTodo', todo)
+  emits('add-todo', todo)
   // 4. 清空输入框
   content.value = ''
 }
@@ -55,6 +65,8 @@ function addTodo() {
   perspective: 900px;
   cursor: default;
 }
+
+/* 标题样式,3D效果 */
 .todo-header .header-text h2 {
   color: #d0c5c0;
   font-size: 160px;
@@ -69,17 +81,21 @@ function addTodo() {
   transform: rotateX(45deg) scaleY(1.3);
   transform-origin: bottom center;
 }
+/* 跳动黄字 */
 .todo-header .header-text .scale-text {
   position: absolute;
   top: 150px;
   left: 400px;
 }
+
+/* 添加任务框样式 */
 .todo-header .add-todo {
   margin-top: 10px;
   display: flex;
   gap: 5px;
   justify-content: center;
 }
+/* 输入框样式 */
 .todo-header .add-todo input {
   width: 675px;
   height: 40px;
@@ -95,6 +111,7 @@ function addTodo() {
 .todo-header .add-todo input::placeholder {
   font-size: 16px;
 }
+/* 添加任务按钮样式 */
 .todo-header .add-todo button {
   display: flex;
   justify-content: center;

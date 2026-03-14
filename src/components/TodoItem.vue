@@ -26,6 +26,7 @@
 
 <script setup>
 import { ref } from 'vue'
+// 定义props接收从父组件传递过来的属性
 const props = defineProps({
   id: {
     type: Number,
@@ -38,8 +39,9 @@ const props = defineProps({
   },
 })
 
+// 定义emit事件,用于向父组件发送事件
 const emits = defineEmits(['toggle', 'update', 'delete'])
-
+// 定义一个状态变量isEditing,用于记录当前任务项是否正在编辑
 const isEditing = ref(false)
 
 // 约定:在setup中有形如vFocus,被当做一个指令
@@ -51,10 +53,17 @@ const vFocus = {
   },
 }
 
-// 向APP组件发送toggle事件,将当前的id和选中的状态传过去
+/**
+ * 向APP组件发送toggle事件,将当前的id和选中的状态传过去
+ * @param event 事件对象
+ */
 const handleChange = (event) => {
   emits('toggle', props.id, event.target.checked)
 }
+/**
+ * 更新任务内容
+ * @param event 事件对象
+ */
 const handleUpdate = (event) => {
   // 内容不为空
   if (!event.target.value) {
@@ -67,12 +76,16 @@ const handleUpdate = (event) => {
   //
 }
 
+/**
+ * 删除任务
+ */
 const handleDelete = () => {
   emits('delete', props.id)
 }
 </script>
 
 <style scoped>
+/* 任务项样式 */
 .todo-item {
   list-style: none;
   position: relative;
@@ -81,6 +94,7 @@ const handleDelete = () => {
   height: 40px;
   line-height: 40px;
   text-shadow: 2px 2px 0 #000;
+  /* 中间分割线凹凸效果 */
   box-shadow:
     0 -1px 2px #2f2d2c,
     0 1px 0px #222,
@@ -97,12 +111,14 @@ const handleDelete = () => {
 .todo-item:hover span {
   color: #000;
 }
+/* 文字内容样式 */
 .todo-item span,
 .todo-item input[type='text'] {
   flex: 1;
   margin: 0 20px;
   color: #fff;
 }
+/* 输入框样式 */
 .todo-item input[type='text']{
   height: 30px;
   background-color: #ede5e2;
@@ -113,10 +129,12 @@ const handleDelete = () => {
   box-shadow: inset -2px 2px 2px #666,
    -2px 2px 2px #999;
 }
+/* 已完成任务样式 */
 .todo-item span.done {
   text-decoration: line-through;
   color: red;
 }
+/* 删除按钮样式 */
 .todo-item button {
   width: 80px;
   font-weight: 500;
