@@ -10,7 +10,7 @@
       @keyup.enter="handleUpdate"
     />
     <span v-else @click="isEditing = true" :class="{'done':done}">{{ content }}</span>
-    <button @click="handleDelete">删除</button>
+    <button class="btn-color" @click="handleDelete">Delete</button>
   </li>
 </template>
 
@@ -67,26 +67,38 @@ const handleDelete = () => {
   list-style: none;
   position: relative;
   /* 两侧内边距 */
-  padding-inline: 40px;
+  padding-inline: 30px;
   height: 40px;
   line-height: 40px;
-  border-bottom: 1px solid #eee;
+  text-shadow: 2px 2px 0 #000;
+  box-shadow: 0 1px 0px #222,
+  0 2px 0px #2F2D2C,
+  0 3px 0px #5a5352;
   display: flex;
   align-items: center;
 }
 .todo-item:hover {
-  background-color: #ddd;
+  background-color: #EDE5E2;
+  border-left: 2px solid #3b3939;
+  text-shadow: 2px 2px 0 #bbb;
+}
+.todo-item:hover span{
+  color: #000;
 }
 .todo-item span,
 .todo-item input[type='text'] {
   flex: 1;
   margin-left: 20px;
+  color: #fff;
 }
 .todo-item span.done {
   text-decoration: line-through;
   color: red;
 }
 .todo-item button {
-  padding: 0 10px;
+  width: 80px;
+  font-weight: 500;
+  padding: 3px 0;
+  cursor: pointer;
 }
 </style>

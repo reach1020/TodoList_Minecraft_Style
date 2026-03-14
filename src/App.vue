@@ -1,6 +1,7 @@
 <template>
+  <div class="bg"></div>
   <TodoHeader @addTodo="handleAdd" />
-  <TodoList>
+  <TodoList v-if="todos.length">
     <draggable v-model="todos" item-key="id">
       <template #item="obj">
         <TodoItem
@@ -83,9 +84,60 @@ onMounted(() => {
 </script>
 
 <style>
+@import 'http://at.alicdn.com/t/c/font_5136873_ru4bucu0u8g.css';
+
+/*声明OTF格式的自定义字体*/
+@font-face {
+  /* 自定义字体名称：后续使用时要完全匹配 */
+  font-family: 'DepartureMono Nerd Font';
+  /* 字体文件路径：根据你的实际结构调整 */
+  src: url('./assets/fonts/DEPARTUREMONONERDFONT-REGULAR.OTF')
+    format('opentype');
+  /* 字体权重 */
+  font-weight: normal;
+  /* 字体样式 */
+  font-style: normal;
+  /* 加载策略：先显示备用字体，避免空白 */
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'DepartureMono Nerd Font', monospace;
+}
+/* 隐藏滚动条 */
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.btn-color {
+  background-color: #3d3938;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
+  border: solid 2px #aba09c;
+  box-shadow: inset 0 2px 2px #000;
+  cursor: pointer;
+}
+.btn-color:hover {
+  background-color: #898584;
+  color: #222;
+  border: solid 2px #3d3938;
+  text-shadow: 2px 2px 0 #777;
+  box-shadow: inset 0 2px 2px #686260;
+}
+.bg {
+  position: fixed;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+  background: url('./assets/images/bg.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* 模糊滤镜 */
+  filter: blur(5px);
+  z-index: -1;
 }
 </style>
