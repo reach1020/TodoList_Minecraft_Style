@@ -40,10 +40,12 @@ function addTodo(){
 
 <style scoped>
 .todo-header {
+  margin-top: 80px;
   padding: 5px 0 10px;
   text-align: center;
   /* 3D效果,与文字3D效果配合使用 */
   perspective: 900px;
+  cursor: default;
 }
 .todo-header h2 {
   color: #D0C5C0;
@@ -73,7 +75,8 @@ function addTodo(){
   color: #F8F8F8;
   outline: none;
   border: solid 2px #898481;
-  box-shadow: inset 0 4px 2px #000;
+  box-shadow: inset 0 4px 2px #000,
+  0 4px 10px #222;
 }
 .todo-header .add-todo input::placeholder {
   font-size: 16px; /* 设置placeholder字号 */

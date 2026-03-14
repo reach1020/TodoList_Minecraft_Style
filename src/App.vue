@@ -111,22 +111,9 @@ onMounted(() => {
 body {
   overflow-x: hidden;
   overflow-y: auto;
+  min-width: 800px;
 }
-.btn-color {
-  background-color: #3d3938;
-  color: #fff;
-  text-shadow: 2px 2px 0 #000;
-  border: solid 2px #aba09c;
-  box-shadow: inset 0 2px 2px #000;
-  cursor: pointer;
-}
-.btn-color:hover {
-  background-color: #898584;
-  color: #222;
-  border: solid 2px #3d3938;
-  text-shadow: 2px 2px 0 #777;
-  box-shadow: inset 0 2px 2px #686260;
-}
+/* 背景图片 */
 .bg {
   position: fixed;
   top: -10px;
@@ -139,5 +126,23 @@ body {
   /* 模糊滤镜 */
   filter: blur(5px);
   z-index: -1;
+}
+/* 按钮通用样式 */
+.btn-color {
+  background-color: #3d3938;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
+  border: solid 2px #aba09c;
+  box-shadow: inset 0 2px 2px #000,
+  0 2px 5px #222;
+  cursor: pointer;
+}
+.btn-color:hover {
+  background-color: #aaa;
+  color: #000;
+  border: solid 2px #fff;
+  text-shadow: 2px 2px 0 #999;
+  box-shadow: inset 0 2px 2px #686260,
+  0 2px 5px #222;
 }
 </style>

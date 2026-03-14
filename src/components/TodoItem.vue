@@ -71,7 +71,8 @@ const handleDelete = () => {
   height: 40px;
   line-height: 40px;
   text-shadow: 2px 2px 0 #000;
-  box-shadow: 0 1px 0px #222,
+  box-shadow: 0 -1px 2px #2F2D2C,
+  0 1px 0px #222,
   0 2px 0px #2F2D2C,
   0 3px 0px #5a5352;
   display: flex;
