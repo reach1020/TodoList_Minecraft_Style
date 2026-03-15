@@ -26,13 +26,6 @@
     </div>
   </footer>
   <p v-else class="scale-text">No Task!</p>
-  <div class="foot-info">
-    <p>Written by Reach</p>
-    <p>
-      Visual style inspired by Minecraft.Fan-made, non-commercial, for learning
-      only.
-    </p>
-  </div>
 </template>
 
 <script setup>
@@ -165,15 +158,5 @@ const handleFilterDone = () => {
   margin-left: 10px;
   padding: 2px 10px;
   cursor: pointer;
-}
-
-/* 页脚信息样式 */
-.foot-info {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #fff;
-  text-wrap: nowrap;
-  text-shadow: 1px 2px 0 #222;
 }
 </style>

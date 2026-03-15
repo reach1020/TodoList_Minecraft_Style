@@ -21,6 +21,7 @@
     @clear-all="handleClearAll"
     @filter-done="handleFilterDone"
   />
+  <FooterInfo />
 </template>
 
 <script setup>
@@ -30,8 +31,9 @@ import draggable from 'vuedraggable'
 // 引入组件
 import TodoHeader from './components/TodoHeader.vue'
 import TodoList from './components/TodoList.vue'
-import TodoFooter from './components/TodoFooter.vue'
 import TodoItem from './components/TodoItem.vue'
+import TodoFooter from './components/TodoFooter.vue'
+import FooterInfo from './components/FooterInfo.vue'
 
 const todos = ref([])
 const isFilteredDone = ref(false)
