@@ -43,6 +43,7 @@ function addTodo() {
     id: Date.now(),
     content: content.value,
     done: false,
+    isShow:true,
   }
   // 3.发送数组给app组件
   emits('add-todo', todo)

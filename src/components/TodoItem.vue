@@ -9,6 +9,10 @@
     <!-- 所有的checkbox都使用了相同的id="todo-checkbox"，这是一个问题。
      因为id应该是唯一的，当多个元素使用相同的id时，浏览器只会识别第一个元素。 -->
     <label :for="`todo-checkbox-${id}`" class="label-checkbox"></label>
+    <!-- 输入框气泡 -->
+    <span v-if="isEditing" class="bubble-big">○</span>
+    <span v-if="isEditing" class="bubble-middle">○</span>
+    <span v-if="isEditing" class="bubble-small">○</span>
     <input
       v-if="isEditing"
       v-focus
@@ -17,9 +21,10 @@
       @blur="handleUpdate"
       @keyup.enter="handleUpdate"
     />
-    <span v-else @click="isEditing = true" :class="{ done: done }">{{
+    <span v-else @click="isEditing = true" :class="{ done: done }" class="item-content">{{
       content
     }}</span>
+    <!-- ○ -->
     <button class="btn-color" @click="handleDelete">Delete</button>
   </li>
 </template>
@@ -35,6 +40,9 @@ const props = defineProps({
     type: String,
   },
   done: {
+    type: Boolean,
+  },
+  isShow: {
     type: Boolean,
   },
 })
@@ -108,11 +116,53 @@ const handleDelete = () => {
   border-left: 2px solid #3b3939;
   text-shadow: 2px 2px 0 #bbb;
 }
-.todo-item:hover span {
+
+/* 气泡样式 */
+.bubble-big{
+  position: absolute;
+  right: 120px;
+  top: -8px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 50%;
+  color: #75d5fbc5;
+  text-shadow: 1px 1.5px 1px #ffffff;
+}
+.bubble-middle{
+  position: absolute;
+  right: 115px;
+  top: 0px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bolder;
+  border-radius: 50%;
+  color: #2CB6FB;
+  text-shadow: 1px 1px 1px #ffffff83;
+}
+.bubble-small{
+  position: absolute;
+  right: 124px;
+  top: 9px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 900;
+  border-radius: 50%;
+  color: #75D6FB;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.todo-item:hover .item-content {
   color: #000;
 }
 /* 文字内容样式 */
-.todo-item span,
+.todo-item .item-content,
 .todo-item input[type='text'] {
   flex: 1;
   margin: 0 20px;
@@ -125,12 +175,15 @@ const handleDelete = () => {
   color: #000;
   font-size: 16px;
   outline: none;
-  border: none;
-  box-shadow: inset -2px 2px 2px #666,
-   -2px 2px 2px #999;
+  border-top: 4px solid #2CB6FB;
+  border-right: 4px solid #2cb6fbcf;
+  border-bottom: 3px solid #75D6FB;
+  border-left: 3px solid #2cb6fbd8;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #2cb6fbd8;
 }
 /* 已完成任务样式 */
-.todo-item span.done {
+.todo-item .item-content.done {
   text-decoration: line-through;
   color: red;
 }

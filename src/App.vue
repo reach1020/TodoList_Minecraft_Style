@@ -2,7 +2,7 @@
   <div class="bg"></div>
   <TodoHeader @add-todo="handleAdd" />
   <TodoList v-if="todos.length">
-    <draggable v-model="todos" item-key="id">
+    <draggable v-model="displayTodos" item-key="id">
       <template #item="obj">
         <TodoItem
           v-bind="obj.element"
@@ -18,11 +18,12 @@
     @toggle-all="handleChangeAll"
     @clear-done="handleClearDone"
     @clear-all="handleClearAll"
+    @filter-done="handleFilterDone"
   />
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 // 引入第三方排序插件
 import draggable from 'vuedraggable'
 // 引入组件
@@ -90,11 +91,36 @@ const handleClearAll = () => {
   localStorage.removeItem('todos')
 }
 
+// 选中已完成事件模块
+/**
+ * 事件处理函数:处理筛选已完成任务事件
+ */
+const displayTodos = computed(() => {
+  return todos.value.filter((todo)=>todo.isShow)
+})
+
+const isFilteredDone = ref(false)
+
+const handleFilterDone = () => {
+  isFilteredDone.value = !isFilteredDone.value
+  if (isFilteredDone.value){
+    todos.value.forEach((todo) => {
+      todo.isShow = todo.done
+    })
+  }
+  else {
+    todos.value.forEach((todo)=>{
+      todo.isShow = true
+    })
+  }
+}
+
 //监听函数:监听todos数组变化,将其保存到本地存储,为JSON字符串
 watch(
   todos,
   () => {
     localStorage.setItem('todos', JSON.stringify(todos.value))
+    localStorage.setItem('isFilteredDone', JSON.stringify(isFilteredDone.value))
   },
   { deep: true },
 )
@@ -102,8 +128,10 @@ watch(
 // 挂载完成时,从本地存储加载任务列表
 onMounted(() => {
   const savedTodos = localStorage.getItem('todos')
+  const savedIsFilteredDone = localStorage.getItem('isFilteredDone')
   if (savedTodos) {
     todos.value = JSON.parse(savedTodos)
+    isFilteredDone.value = JSON.parse(savedIsFilteredDone)
   }
 })
 </script>
@@ -133,9 +161,9 @@ onMounted(() => {
 }
 /* 隐藏滚动条 */
 body {
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
-  min-width: 800px;
+  min-width: 1100px;
 }
 
 /* 背景图片模糊 */
@@ -249,6 +277,7 @@ input[type='checkbox']:checked + .label-checkbox {
   background: #f86b69;
   border: 4px solid #fd2727;
   border-radius: 2px;
+  box-shadow: 0 0 20px #fd2727;
   cursor: pointer;
 }
 input[type='checkbox']:checked + .label-checkbox::before {

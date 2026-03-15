@@ -1,5 +1,7 @@
-# TodoList
+# TodoList项目文档
 基于Vue 3实现的我的世界风格待办事项应用
+
+功能预览、试用（已经打包成静态文件并部署到线上）
 
 [![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)
 
