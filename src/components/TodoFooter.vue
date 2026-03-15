@@ -10,10 +10,12 @@
       <label for="toggle-all" class="label-checkbox"></label>
       <span
         class="done-span"
-        :class="{ active: doneCount > 0 }"
+        :class="{ active: doneCount > 0 && doneCount < allCount }"
         @click="handleFilterDone"
-        >Completed:{{ doneCount }}</span
-      >
+        >Completed:{{ doneCount }}
+      </span>
+      <!-- 当折叠了任务时,显示感叹号 -->
+      <span v-show="isFilteredDone" class="active-icon">!</span>
       <span class="all-span">/All:{{ allCount }}</span>
     </div>
     <div class="btn-zone">
@@ -34,13 +36,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 
 // 定义props接收从父组件传递过来的todos数组
 const props = defineProps({
   todos: {
     type: Array,
     default: () => [],
+  },
+  isFilteredDone: {
+    type: Boolean,
   },
 })
 // 定义自定义事件
@@ -77,7 +82,7 @@ const handleChange = (event) => {
 }
 
 const handleFilterDone = () => {
-  if (doneCount.value === 0) return
+  if (doneCount.value === 0 || doneCount.value === allCount.value) return
   emits('filter-done')
 }
 </script>
@@ -98,16 +103,39 @@ const handleFilterDone = () => {
   box-shadow: 2px 4px 10px #222;
 }
 
-/* 全选复选框样式增加 */
-.label-checkbox {
-  top: 23px;
-}
 /* 页脚内容样式 */
 .todo-footer .footer-content {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 20px;
+}
+.todo-footer .footer-content input[type='checkbox'] {
+  top: 5px;
+  left: -25px;
+}
+/* 全选复选框样式增加 */
+.todo-footer .footer-content .label-checkbox {
+  top: 13px;
+  left: -26px;
+}
+
+/* Completed文字样式 */
+.todo-footer .done-span {
+  color: #3c8527;
+  text-shadow: 2px 2px 0 #000;
+  cursor: default;
+}
+/* 跳动黄字通用样式 */
+@keyframes scaleIcon {
+  0%,
+  100% {
+    transform: scale(1.5);
+  }
+  50% {
+    transform: scale(2.2);
+  }
 }
 /* All文字样式 */
 .todo-footer .all-span {
@@ -115,12 +143,20 @@ const handleFilterDone = () => {
   display: flex;
   align-items: center;
   color: #ffc42b;
+  text-shadow: 2px 2px 0 #000;
 }
-/* Completed文字样式 */
-.todo-footer .done-span {
-  color: #3c8527;
+.todo-footer .active-icon {
+  color: #6fab43;
+  font-size: 16px;
+  text-shadow:
+    1px 1.5px 0 #4a3321,
+    0 0 4px #ccc;
+  animation: scaleIcon 0.5s ease-in-out infinite;
 }
 .todo-footer .done-span.active {
+  font-weight: bold;
+  text-shadow: 1px 2px 2px #4a3321;
+  border-radius: 10px;
   cursor: pointer;
 }
 

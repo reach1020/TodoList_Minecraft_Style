@@ -2,7 +2,7 @@
   <header class="todo-header">
     <div class="header-text">
       <h2>TodoList</h2>
-      <p class="scale-text">Click to Edit Task!</p>
+      <p class="scale-text">{{ textArr[randomNumber] }}</p>
     </div>
     <div class="add-todo">
       <input
@@ -20,7 +20,18 @@
 <script setup>
 import { ref } from 'vue'
 
+// 定义状态变量content,用于记录用户输入的待办事项
 const content = ref('')
+// 定义数组,存储标题跳动的黄字
+const textArr = ['Click to Edit Task!','Hello Wrold!','Welcome to TodoList!','Click "Complete"!']
+
+// 定义props接收从父组件传递过来的属性
+const props = defineProps({
+  randomNumber: {
+    type: Number,
+    default: 0,
+  }
+})
 // 自定义事件addTodo
 const emits = defineEmits(['add-todo'])
 

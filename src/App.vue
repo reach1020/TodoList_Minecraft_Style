@@ -1,6 +1,6 @@
 <template>
   <div class="bg"></div>
-  <TodoHeader @add-todo="handleAdd" />
+  <TodoHeader @add-todo="handleAdd" :randomNumber="randomNumber" />
   <TodoList v-if="todos.length">
     <draggable v-model="displayTodos" item-key="id">
       <template #item="obj">
@@ -15,6 +15,7 @@
   </TodoList>
   <TodoFooter
     :todos="todos"
+    :isFilteredDone="isFilteredDone"
     @toggle-all="handleChangeAll"
     @clear-done="handleClearDone"
     @clear-all="handleClearAll"
@@ -33,6 +34,7 @@ import TodoFooter from './components/TodoFooter.vue'
 import TodoItem from './components/TodoItem.vue'
 
 const todos = ref([])
+const isFilteredDone = ref(false)
 
 // 处理添加任务
 function handleAdd(todo) {
@@ -73,6 +75,12 @@ const handleChangeAll = (checked) => {
   // 使用传递的value值,更新所有todo的done属性
   todos.value.forEach((todo) => {
     todo.done = checked
+    // 确保根据当前过滤状态更新显示状态
+    if(isFilteredDone.value){
+      todo.isShow = todo.done
+    }else{
+      todo.isShow = true
+    }
   })
 }
 /**
@@ -81,6 +89,12 @@ const handleChangeAll = (checked) => {
 const handleClearDone = () => {
   // 过滤出未完成元素
   todos.value = todos.value.filter((todo) => !todo.done)
+  // 重置过滤状态
+  isFilteredDone.value = false
+  // 确保所有剩余任务都显示
+  todos.value.forEach((todo) => {
+    todo.isShow = true
+  })
 }
 /**
  * 事件处理函数:处理清除所有任务事件
@@ -89,6 +103,7 @@ const handleClearAll = () => {
   // todos.value.length = 0
   todos.value = []
   localStorage.removeItem('todos')
+  localStorage.removeItem('isFilteredDone')
 }
 
 // 选中已完成事件模块
@@ -96,18 +111,27 @@ const handleClearAll = () => {
  * 事件处理函数:处理筛选已完成任务事件
  */
 const displayTodos = computed(() => {
-  return todos.value.filter((todo)=>todo.isShow)
-})
+  // 根据过滤状态返回不同的任务列表
+  if (isFilteredDone.value) {
+    return todos.value.filter(todo => todo.done);
+  }
+  return todos.value;
+});
 
-const isFilteredDone = ref(false)
 
+/**
+ * 事件处理函数:处理筛选已完成任务事件
+ */
 const handleFilterDone = () => {
+  // 切换过滤状态
   isFilteredDone.value = !isFilteredDone.value
+  // 当要过滤已完成任务时,只显示已完成任务
   if (isFilteredDone.value){
     todos.value.forEach((todo) => {
       todo.isShow = todo.done
     })
   }
+  // 当不筛选已完成任务时,显示所有任务
   else {
     todos.value.forEach((todo)=>{
       todo.isShow = true
@@ -120,18 +144,25 @@ watch(
   todos,
   () => {
     localStorage.setItem('todos', JSON.stringify(todos.value))
+    // 同时保存过滤状态,虽然是布尔值,但是要转换为字符串,否则会输出为[object Object]
     localStorage.setItem('isFilteredDone', JSON.stringify(isFilteredDone.value))
   },
   { deep: true },
 )
 
-// 挂载完成时,从本地存储加载任务列表
+const randomNumber = ref(0)
+// 挂载完成时,执行初始化操作
 onMounted(() => {
+  // 生成随机数,作为标题跳动黄字的索引
+  randomNumber.value = Math.floor(Math.random() * 4)
+  // 从本地存储加载任务列表
   const savedTodos = localStorage.getItem('todos')
   const savedIsFilteredDone = localStorage.getItem('isFilteredDone')
   if (savedTodos) {
     todos.value = JSON.parse(savedTodos)
-    isFilteredDone.value = JSON.parse(savedIsFilteredDone)
+    if(todos.value.length){
+      isFilteredDone.value = JSON.parse(savedIsFilteredDone)
+    }
   }
 })
 </script>
@@ -142,8 +173,8 @@ onMounted(() => {
   /* 自定义字体名称：后续使用时要完全匹配 */
   font-family: 'DepartureMono Nerd Font';
   /* 字体文件路径：根据你的实际结构调整 */
-  src: url('./assets/fonts/DEPARTUREMONONERDFONT-REGULAR.OTF')
-    format('opentype');
+  src: url('./assets/fonts/DEPARTUREMONONERDFONT-REGULAR_minified.woff2')
+    format('woff2');
   /* 字体权重 */
   font-weight: normal;
   /* 字体样式 */
@@ -157,13 +188,13 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'DepartureMono Nerd Font', monospace;
+  font-family: 'DepartureMono Nerd Font', 'Microsoft YaHei', sans-serif;
 }
 /* 隐藏滚动条 */
 body {
   overflow-x: auto;
   overflow-y: auto;
-  min-width: 1100px;
+  min-width: 1210px;
 }
 
 /* 背景图片模糊 */
@@ -173,7 +204,7 @@ body {
   right: -10px;
   bottom: -10px;
   left: -10px;
-  background: url('./assets/images/bg.png') no-repeat;
+  background: url('./assets/images/bg.webp') no-repeat;
   background-size: cover;
   background-position: center;
   /* 模糊滤镜 */
