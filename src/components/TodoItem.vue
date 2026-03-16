@@ -18,12 +18,17 @@
       v-focus
       type="text"
       :value="content"
-      @blur="handleUpdate"
+      @blur="isEditing = false"
+      @click="handleUpdate"
       @keyup.enter="handleUpdate"
     />
-    <span v-else @click="isEditing = true" :class="{ done: done }" class="item-content">{{
-      content
-    }}</span>
+    <span
+      v-else
+      @click="isEditing = true"
+      :class="{ done: done }"
+      class="item-content"
+      >{{ content }}</span
+    >
     <!-- ○ -->
     <button class="btn-color" @click="handleDelete">Delete</button>
   </li>
@@ -118,43 +123,43 @@ const handleDelete = () => {
 }
 
 /* 气泡样式 */
-.bubble-big{
+.bubble-big {
   position: absolute;
   right: 120px;
-  top: -8px;
+  top: -16px;
   width: 40px;
   height: 40px;
   text-align: center;
-  font-size: 24px;
+  font-size: 40px;
   font-weight: bold;
   border-radius: 50%;
   color: #75d5fbc5;
   text-shadow: 1px 1.5px 1px #ffffff;
 }
-.bubble-middle{
+.bubble-middle {
   position: absolute;
-  right: 115px;
-  top: 0px;
+  right: 113px;
+  top: -6px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bolder;
+  border-radius: 50%;
+  color: #2cb6fb;
+  text-shadow: 1px 1px 1px #ffffff83;
+}
+.bubble-small {
+  position: absolute;
+  right: 120px;
+  top: 4px;
   width: 40px;
   height: 40px;
   text-align: center;
   font-size: 16px;
-  font-weight: bolder;
-  border-radius: 50%;
-  color: #2CB6FB;
-  text-shadow: 1px 1px 1px #ffffff83;
-}
-.bubble-small{
-  position: absolute;
-  right: 124px;
-  top: 9px;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  font-size: 10px;
   font-weight: 900;
   border-radius: 50%;
-  color: #75D6FB;
+  color: #75d6fb;
   text-shadow: 1px 1px 1px #ffffff;
 }
 
@@ -169,18 +174,19 @@ const handleDelete = () => {
   color: #fff;
 }
 /* 输入框样式 */
-.todo-item input[type='text']{
+.todo-item input[type='text'] {
   height: 30px;
   background-color: #ede5e2;
-  color: #000;
+  color: #0092dc;
   font-size: 16px;
+  text-shadow: 2px 0 0 #76caf4;
   outline: none;
-  border-top: 4px solid #2CB6FB;
+  border-top: 4px solid #2cb6fb;
   border-right: 4px solid #2cb6fbcf;
-  border-bottom: 3px solid #75D6FB;
+  border-bottom: 3px solid #75d6fb;
   border-left: 3px solid #2cb6fbd8;
   border-radius: 10px;
-  box-shadow: 0 0 20px #2cb6fbd8;
+  box-shadow: 0 0 10px #2cb6fbd8;
 }
 /* 已完成任务样式 */
 .todo-item .item-content.done {
