@@ -5,7 +5,7 @@
 
 [![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)
 
-![QQ20260315-174554-HD](READMEImage/QQ20260315-174554-HD.gif)
+![QQ20260315-174554-HD](READMEImage/TodoListPreview.gif)
 
 ## 0.本地部署
 
@@ -167,4 +167,37 @@ TodoList/
 
 ## 5.业务逻辑
 
-未完待续。。。
+### 5.1 TodoHeader
+
+#### 5.1.1 数据流程图
+
+![diagram1](READMEImage/diagram1.jpg)
+
+#### 5.1.2 风格介绍
+
+![TodoHeader](READMEImage/TodoHeader.gif)
+
+(1) TodoList标题文字3D效果
+
+**text-shadow**: *h-shadow v-shadow blur color*;
+
+```css
+/*组合使用可以实现文字3D效果*/
+text-shadow:
+  -4px -2px 0 #000,  /* 左上 */
+  8px -2px 0 #000,	/* 右上 */
+  -4px 15px 0 #3d3938,  /* 左下 */
+  8px 15px 0 #3d3938;		/* 右上 */
+	transform: rotateX(45deg)  /* 配合透视距离,能够绕3D的X轴旋转,呈现字体上大下小 */
+
+/* 在父组件加入此样式:透视距离,与文字3D效果配合使用 */
+  perspective: 900px;
+```
+
+(2) 复刻MC初始界面跳动黄字
+
+根据挂载时，初始化生成的随机索引，获取文字数组内对应文字。
+
+结合动画效果，对文字进行倾斜和缩放。
+
+### 5.2 TodoList
