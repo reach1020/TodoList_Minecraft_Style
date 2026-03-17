@@ -5,74 +5,42 @@
 
 [![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)
 
+[![技术文档](https://img.shields.io/badge/技术文档-点击进入-blue)](TECH_DOC.md)
+
 ![QQ20260315-174554-HD](READMEImage/TodoListPreview.gif)
 
-## 0.本地部署
+## 1.本地部署
 
-1. 下载仓库所有文件；
-2. 执行`npm install`安装依赖；
-3. 执行`npm run dev`启动项目，访问本地地址即可使用。
+### 1.1 环境要求
 
-## 1.功能分析
+- Node.js (v19+ 推荐)
+- npm/pnpm/yarn (任意包管理器)
 
-### 1.1组件拆分图
+### 1.2 部署步骤
 
-![components](READMEImage/components.png)
+#### 1.2.1 克隆仓库
 
-```html
-<TodoHeader/>
-<TodoList/>
-	<draggable>
-		<TodoItem/>
-		<TodoItem/>
-		...
-<TodoFooter/>
-<FooterInfo/>
+```powershell
+git clone https://github.com/reach1020/TodoList_Minecraft_Style.git
+
+cd TodoList_Minecraft_Style
 ```
 
+#### 1.2.2 安装依赖
 
+```powershell
+npm install
+pnpm i
+```
 
-### 1.2 功能需求
+#### 1.2.3 启动开发服务器
 
-#### 1.2.1主体功能
+```powershell
+npm run dev
+pnpm dev
+```
 
-##### (1) 添加功能
-
-- 在文本框输入内容，按下添加按钮或者回车键添加待办任务
-- 如果文本框中没有内容，则提示“内容为空”
-- 添加完成之后，清空文本框内容
-
-##### (2) 修改功能
-
-- 点击checkbox单选框，在任务内容上显示中横线，表示已完成待办任务
-- 双击任务内容，显示文本框， 并自动获得焦点，能够修改内容
-- 修改完成后，文本框失去焦点或者按下回车，更新内容
-
-##### (3) 删除/清除功能
-
-- 点击按钮，删除单个任务
-- 点击按钮，删除全部已完成任务
-- 点击按钮，清除全部任务
-
-##### (4) 统计功能
-
-- 统计已完成任务数量和全面任务的数量
-
-##### (5) 过滤功能
-
-- 点击已完成任务标签，可以选择只显示已完成的任务
-
-##### (6) 数据缓存
-
-- 本地存储，刷新页面不丢失数据
-
-##### (7) 拖拽排序
-
-- 鼠标拖拽，自由调整待办列表顺序
-
-## 2.技术分析
-
-### 2.1技术栈
+## 2.技术栈
 
 - 核心框架：Vue 3
 - 样式实现：HTML5 + CSS3
@@ -83,60 +51,17 @@
 - 版本管理：Git
 - 运行环境：Node.js  + pnpm (依赖安装、终端命令执行)
 
-## 3.开发环境准备
+## 3.功能特性
+1. MC 像素风格 UI：还原我的世界视觉风格，包含像素化按钮、红石质感复选框、3D 文字效果
 
-### 3.1环境依赖要求
+2. Todolist任务管理：添加 / 编辑 / 删除任务、标记任务完成 / 未完成
+3. 任务筛选：筛选已完成任务、一键清除已完成 / 所有任务
+4. 拖拽排序：支持任务项拖拽调整顺序（基于 vuedraggable）
+5. 本地持久化：使用 localStorage 保存任务数据，刷新 / 重启不丢失
+6. 交互体验：编辑任务自动聚焦、hover 动效、完成态视觉反馈、空状态提示
+7. 适配性：基础响应式布局，兼容主流桌面浏览器
 
-- Node.js：版本 >=20.19.0 (Vite v7.3.1最低版本要求) 开发使用版本：v24.14.0
-- 包管理工具：pnpm v10.30.3  (npm亦可)
-- 编辑器：VS Code v1.111.0
-- 浏览器：Chrome/Edge
-- 版本管理工具: GitHub v2.39.2
-
-### 3.2 环境搭建步骤
-
-#### 3.2.1 安装Node.js
-
-前往Node官网下载对应系统最新稳定版，安装后打开终端，运行`node -v`、`npm -v`，能显示版本号即安装成功。
-
-#### 3.2.2（选用npm可跳过）下载pnpm包。
-
-pnpm是高性能npm，比前两者在性能上有很大提升，可以解决npm和yarn重复文件和复用率的问题。
-
-```powershell
-#终端输入全局安装
-npm install -g pnpm
-#能查到版本即安装成功
-pnpm -v
-```
-
-#### 3.2.3 使用Vite快速构建
-
-（1）安装Vite
-
-```powershell
-pnpm add -g vite  #以下均使用pnpm
-vite -v 	#查看版本
-```
-
-（2）终端输入，设置项目名称->选择Vue架构->Official Vue Starter->跳过所有附加的功能和试验特性->跳过所有示例代码，选择是。
-
-```powershell
-pnpm create vite  #出现node_modules文件夹即成功
-```
-
-#### 3.2.4 安装依赖，并启动开发环境
-
-使用VS Code打开刚刚生成的项目文件夹，打开终端，输入以下代码
-
-```powershell
-pnpm i   #安装所需的包(pnpm install的简写)
-pnpm dev   #开启服务器
-```
-
-Ctrl+左键 进入控制台输出的地址（默认http://127.0.0.1:5173/）
-
-## 4.项目目录结构
+## 3.项目目录结构
 
 ```
 TodoList/
@@ -162,42 +87,7 @@ TodoList/
 ├── index.html               # HTML 入口文件（Vite 会以此为模板构建）
 ├── package.json             # 项目配置文件（依赖管理、脚本命令等）
 ├── README.md                # 项目说明文档
+├── TECH_DOC.md              # 项目技术文档
 └── vite.config.js           # Vite 配置文件（构建、插件、代理等配置）
 ```
 
-## 5.业务逻辑
-
-### 5.1 TodoHeader
-
-#### 5.1.1 数据流程图
-
-![diagram1](READMEImage/diagram1.jpg)
-
-#### 5.1.2 风格介绍
-
-![TodoHeader](READMEImage/TodoHeader.gif)
-
-(1) TodoList标题文字3D效果
-
-**text-shadow**: *h-shadow v-shadow blur color*;
-
-```css
-/*组合使用可以实现文字3D效果*/
-text-shadow:
-  -4px -2px 0 #000,  /* 左上 */
-  8px -2px 0 #000,	/* 右上 */
-  -4px 15px 0 #3d3938,  /* 左下 */
-  8px 15px 0 #3d3938;		/* 右上 */
-	transform: rotateX(45deg)  /* 配合透视距离,能够绕3D的X轴旋转,呈现字体上大下小 */
-
-/* 在父组件加入此样式:透视距离,与文字3D效果配合使用 */
-  perspective: 900px;
-```
-
-(2) 复刻MC初始界面跳动黄字
-
-根据挂载时，初始化生成的随机索引，获取文字数组内对应文字。
-
-结合动画效果，对文字进行倾斜和缩放。
-
-### 5.2 TodoList
