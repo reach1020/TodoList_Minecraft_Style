@@ -2,7 +2,7 @@
   <div class="bg"></div>
   <TodoHeader @add-todo="handleAdd" :randomNumber="randomNumber" />
   <TodoList v-if="todos.length">
-    <draggable v-bind="displayTodos" item-key="id">
+    <draggable v-model="displayTodos" item-key="id">
       <template #item="obj">
         <TodoItem
           v-bind="obj.element"

@@ -170,7 +170,7 @@ TodoList/
 
 ![TodoHeader](READMEImage/TodoHeader.gif)
 
-(1) TodoList标题文字3D效果
+##### (1) TodoList标题文字3D效果
 
 **text-shadow**: *h-shadow v-shadow blur color*;
 
@@ -187,10 +187,17 @@ text-shadow:
   perspective: 900px;
 ```
 
-(2) 复刻MC初始界面跳动黄字
+##### (2) 复刻MC初始界面跳动黄字
 
 根据挂载时，初始化生成的随机索引，获取文字数组内对应文字。
 
 结合动画效果，对文字进行倾斜和缩放。
 
 ### 5.2 TodoList
+
+#### 5.2.1数据流程图
+
+![diagram2](READMEImage/diagram2.jpg)
+
+#### 5.2.2 风格介绍
+
