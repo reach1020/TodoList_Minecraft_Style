@@ -1,6 +1,6 @@
 <template>
  <div class="foot-info">
-    <p>Written by Reach</p>
+    <p>v0.13 Written by Reach</p>
     <p>
       Visual style inspired by Minecraft.Fan-made, non-commercial, for learning
       only.
