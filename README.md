@@ -3,9 +3,8 @@
 
 功能预览、试用（已经打包成静态文件并部署到线上）
 
-[![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)
-
-[![技术文档](https://img.shields.io/badge/技术文档-点击进入-blue)](TECH_DOC.md)
+[![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)[![技术文档](  https://img.shields.io/badge/技术文档-点击进入-orange)](TECH_DOC.md)
+[![Vue 3](https://img.shields.io/badge/Vue%203-4FC08D?style=flat-square&logo=vue.js&logoColor=white)](https://vuejs.org/)[![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 
 ![QQ20260315-174554-HD](READMEImage/TodoListPreview.gif)
 

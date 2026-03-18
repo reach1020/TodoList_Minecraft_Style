@@ -3,15 +3,9 @@
 
 功能预览、试用（已经打包成静态文件并部署到线上）
 
-[![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)
+[![访问网站](https://img.shields.io/badge/访问网站-点击进入-blue)](https://reach1020.github.io/TodoList_Minecraft_Style/)[![访问网站](https://img.shields.io/badge/返回首页-点击进入-green)](https://github.com/reach1020/TodoList_Minecraft_Style)
 
 ![QQ20260315-174554-HD](READMEImage/TodoListPreview.gif)
-
-## 0.本地部署
-
-1. 下载仓库所有文件；
-2. 执行`npm install`安装依赖；
-3. 执行`npm run dev`启动项目，访问本地地址即可使用。
 
 
 ## 1.功能分析
