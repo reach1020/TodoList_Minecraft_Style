@@ -203,8 +203,6 @@ text-shadow:
 
 ![TodoListStyle](READMEImage/TodoListStyle.jpg)
 
-![TodoListStyle](READMEImage/TodoListStyle.gif)
-
 ##### （1）红石单选框
 
 **原生复选框改造 + CSS 伪元素 + 状态驱动样式**实现 “红石风格” 的自定义单选框（复选框）交互
@@ -238,4 +236,84 @@ box-shadow:
   0 2px 0px #2f2d2c,
   0 3px 0px #5a5352;
 ```
-未完待续
+### 5.3 TodoFooter
+
+#### 5.3.1 数据流程图
+
+![diagram3](READMEImage/diagram3.jpg)
+
+### 5.4 数据持久化
+
+#### 5.4.1 数据流程图
+
+![diagram4](READMEImage/diagram4.jpg)
+
+#### 5.4.2 风格介绍
+
+Completed样式变化
+
+​	**基础状态：**当没有任务完成或者全部任务已经完成时，绿字为基础样式。
+
+​	**可交互状态：**当同时存在「已完成」与「未完成」任务时，绿字添加模糊效果，提示该区域可点击交互。
+
+​	**交互行为：**点击统计文字区域，可在「显示全部任务」与「仅显示已完成任务」之间切换筛选状态
+
+![footerStyle](READMEImage/footerStyle.gif)
+
+## 6.其余收获
+
+### 6.1 引入外部字体
+
+（1）从系统字体目录（C:\Windows\Fonts）提取字体文件
+
+（2）转换文件格式，将原文件从`.otf`转为 `.woff2`格式。
+
+- `.otf` 格式体积较大，会显著降低网页字体加载速度；
+- `.woff2` 具备更高压缩率，体积更小、加载更快，是现代网页的首选格式。
+
+（3）资源存放规范，将字体文件放置到 src/assets/fonts 文件夹，便于构建工具 Vite 进行打包优化与资源管理
+
+```css
+/*引入字体:防止加载页面时,用户没有该字体,声明OTF格式的自定义字体*/
+@font-face {
+  /* 自定义字体名称：后续使用时要完全匹配 */
+  font-family: 'DepartureMono Nerd Font';
+  /* 字体文件路径：根据你的实际结构调整 */
+  src: url('./assets/fonts/DEPARTUREMONONERDFONT-REGULAR_minified.woff2')
+    format('woff2');
+  /* 字体权重 */
+  font-weight: normal;
+  /* 字体样式 */
+  font-style: normal;
+  /* 加载策略：先显示备用字体，避免空白 */
+  font-display: swap;
+}
+```
+
+### 6.2 图片
+
+(1) 资源存放规范，将字体文件放置到 src/assets/images文件夹，便于构建工具 Vite 进行打包优化与资源管理。
+
+(2) 将网页资源图片转换为webp,其特点是**高压缩率**（同等画质下比 PNG 小 26%、比 JPG 小 25-34%），同时支持**有损 / 无损压缩**、**透明通道**、**动图**，是网页端图片优化的首选。
+
+### 6.3 打包
+
+##### （1） 在终端输入打包命令
+
+```bash
+pnpm build
+```
+
+（2）使Vite 打包的核心目标是将src目录下的**业务源码**（.vue/.js/.css/ 图片 / 字体等）处理后，生成可直接部署的静态文件。打包后默认在项目根目录生成dist文件夹，这是最终的部署产物。
+
+![build](READMEImage/build.png)
+
+（3）部署静态文件
+
+​	① 在项目目录下新建docs文件夹，把dist文件夹所有文件复制到docs文件夹下，提交推送至github
+
+​	②打开github->设置->页面，选择从主分支部署docs文件夹，稍等片刻，即可完成网站部署
+
+![githubPage](READMEImage/githubPage.png)
+
+原因：GitHub Pages 只能运行「浏览器可直接识别的静态文件」，而 Vue 源码（.vue/.ES6+ 语法）是浏览器无法解析的。
